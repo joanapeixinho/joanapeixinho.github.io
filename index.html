@@ -1,93 +1,463 @@
----
-layout: home
-title: "Joana Peixinho"
-description: "Computer Science student passionate about innovation, leadership, and problem solving."
----
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joana Peixinho — &amp; Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  body {
-    font-family: 'Helvetica Neue', sans-serif;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #fefefe;
-    color: #222;
+  :root{
+    --ink:#14171c;
+    --ink-2:#1c2027;
+    --paper:#f6f1e6;
+    --paper-dim:#ece4d3;
+    --gold:#c9a227;
+    --teal:#4a8f89;
+    --text-light:#eae6da;
+    --text-dark:#23262b;
+    --muted:#8b8f98;
+    --muted-dark:#6b6558;
+    --serif: 'Fraunces', serif;
+    --sans: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:var(--sans);
+    text-align:justify;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.75rem;}
+
+  /* thumb index */
+  .thumb-index{
+    position:fixed;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    z-index:50;
+  }
+  .thumb-index a{
+    font-family:var(--mono);
+    font-size:0.65rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    background:var(--ink-2);
+    border:1px solid #2a2f38;
+    border-right:none;
+    padding:0.55rem 0.9rem 0.55rem 0.7rem;
+    margin-bottom:2px;
+    border-radius:6px 0 0 6px;
+    text-decoration:none;
+    transform:translateX(22px);
+    transition:transform .25s ease, color .25s ease, background .25s ease;
+  }
+  .thumb-index a:hover,
+  .thumb-index a.active{
+    transform:translateX(0);
+    color:var(--ink);
+    background:var(--gold);
+    border-color:var(--gold);
+  }
+  @media (max-width:680px){ .thumb-index{display:none;} }
+
+  /* hero */
+  .hero{
+    padding:6rem 0 5.5rem;
+    border-bottom:1px solid #262b33;
+    display:flex;
+    align-items:center;
+    gap:2.5rem;
+  }
+  .hero-photo{
+    flex:0 0 auto;
+    width:132px;
+    height:132px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #2a2f38;
+  }
+  .hero-text{flex:1 1 auto;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:0.9rem;
+  }
+  h1.name{
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(2.2rem, 6vw, 3.4rem);
+    line-height:1.05;
+    margin:0 0 0.5rem;
+    color:var(--paper);
+  }
+  .definition{
+    font-size:1.1rem;
+    line-height:1.6;
+    max-width:34rem;
+    color:var(--text-light);
+    margin:0 0 1.5rem;
+  }
+  .tag-row{display:flex;flex-wrap:wrap;gap:0.5rem;}
+  @media (max-width:600px){
+    .hero{flex-direction:column;align-items:flex-start;text-align:left;}
+  }
+  .tag{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.03em;
+    border:1px solid #333943;
+    color:var(--muted);
+    padding:0.3rem 0.7rem;
+    border-radius:3px;
   }
 
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
+  section{padding:4.2rem 0;}
+  #about{padding-top:5.6rem;}
+  h2.section-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.9rem;
+    color:var(--paper);
+    margin:0 0 2rem;
+    display:flex;
+    align-items:baseline;
+    gap:0.6rem;
+  }
+  h2.section-title .num{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--gold);
+  }
+  #about p{
+    font-size:1.05rem;
+    line-height:1.75;
+    color:#cfcabd;
+  }
+  #about p + p{margin-top:1rem;}
+
+  /* case study entries */
+  .entry{
+    background:var(--paper);
+    color:var(--text-dark);
+    border-radius:10px;
+    padding:2rem 2.1rem;
+    margin-bottom:1.6rem;
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .entry.visible{opacity:1;transform:translateY(0);}
+  .entry-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:1rem;
+    border-bottom:1px solid #ddd3ba;
+    padding-bottom:0.9rem;
+    margin-bottom:1rem;
+  }
+  .entry-head h3{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.35rem;
+    margin:0;
+    line-height:1.25;
+  }
+  .entry-index{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--teal);
+    white-space:nowrap;
+    padding-top:0.15rem;
+  }
+  .entry-meta{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--muted-dark);
+    margin-bottom:1.1rem;
+  }
+  .entry p{margin:0 0 0.7rem;line-height:1.6;font-size:0.98rem;}
+  .entry p strong.label{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:block;
+    margin-bottom:0.25rem;
+  }
+  .entry ul{margin:0 0 0.9rem;padding-left:1.1rem;}
+  .entry li{margin-bottom:0.35rem;line-height:1.55;font-size:0.98rem;}
+  .entry .tag-row{margin-top:1.1rem;}
+  .entry .tag{
+    border-color:#d8cdb4;
+    color:var(--muted-dark);
+    background:var(--paper-dim);
   }
 
-  header h1 {
-    font-size: 2.5rem;
-    color: #e74c3c;
+  /* experience */
+  .job{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:0.5rem 1rem;
+    padding:1.25rem 0;
+    border-bottom:1px solid #262b33;
+  }
+  .job:last-child{border-bottom:none;}
+  .job .role{font-family:var(--serif);font-weight:600;font-size:1.1rem;color:var(--paper);}
+  .job .org{color:var(--teal);font-size:0.92rem;}
+  .job .when{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--muted);
+    text-align:right;
+    padding-top:0.2rem;
+  }
+  .job p{grid-column:1/-1;margin:0.5rem 0 0;color:#cfcabd;font-size:0.95rem;line-height:1.6;}
+
+  /* skills */
+  #skills{text-align:left;}
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.6rem;}
+  .skill-group .label{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:0.6rem;
+    display:block;
+  }
+  .skill-group .items{color:#cfcabd;font-size:0.95rem;line-height:1.7;}
+
+  /* contact */
+  #contact{border-top:1px solid #262b33;text-align:left;}
+  .contact-line{font-size:1.05rem;margin-bottom:1.5rem;color:#cfcabd;}
+  .cta{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:0.85rem;
+    padding:0.75rem 1.4rem;
+    background:var(--gold);
+    color:var(--ink);
+    border-radius:5px;
+    text-decoration:none;
+    margin-right:0.7rem;
+    margin-bottom:0.6rem;
+    transition:transform .15s ease;
+  }
+  .cta.secondary{background:transparent;border:1px solid #333943;color:var(--paper);}
+  .cta:hover{transform:translateY(-2px);}
+  footer{
+    padding:2.5rem 0 3rem;
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--muted);
   }
 
-  h2 {
-    border-bottom: 2px solid #eee;
-    padding-bottom: 0.3rem;
-    color: #333;
-  }
-
-  section {
-    margin-bottom: 2.5rem;
-  }
-
-  a {
-    color: #e67e22;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
+  @media (prefers-reduced-motion: reduce){
+    .entry{transition:none;opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
   }
 </style>
+</head>
+<body>
 
-<header>
-  <img src="joana_peixinho.jpg" alt="Joana Peixinho" style="border-radius: 50%; width: 120px; margin: 0 auto; display: block;">
-  <h1>Hi, I’m Joana Peixinho</h1>
-  <p>Computer Science & Engineering student at Instituto Superior Técnico</p>
-  <p>Driven by curiosity, product thinking, and purposeful innovation.</p>
+<nav class="thumb-index">
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#cases">Cases</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header class="hero wrap">
+  <img class="hero-photo" src="joana_peixinho.jpg" alt="Joana Peixinho">
+  <div class="hero-text">
+    <div class="eyebrow">Computer Science &amp; Engineering</div>
+    <h1 class="name">Hi, I'm Joana Peixinho</h1>
+    <p class="definition">
+      Driven by curiosity, product thinking, and purposeful innovation. Currently building the first
+      large-scale dataset for Portuguese Sign Language Isolated Recognition, and interning as a Project
+      Manager at Premium Minds.
+    </p>
+    <div class="tag-row">
+      <span class="tag">Project Management</span>
+      <span class="tag">Computer Science &amp; Eng.</span>
+      <span class="tag">Agile</span>
+      <span class="tag">Lisbon, PT</span>
+    </div>
+  </div>
 </header>
 
-<section id="about">
-  <h2>🎯 About Me</h2>
-  <p>I’m a Master's student in Computer Science and Engineering, with a strong technical foundation and a vision that goes beyond programming. I'm passionate about building impactful digital products, leading teams, and solving real-world problems through technology.</p>
-  <p>Outside of tech, I’m deeply interested in politics, feminist movements, and music — which has been a creative influence on how I think and work.</p>
+<section id="about" class="wrap">
+  <h2 class="section-title"><span class="num">01</span> About</h2>
+    <p>I'm a Master's student in Computer Science and Engineering at Instituto Superior Técnico. What excites me most is the process of turning an idea into something people actually use. I like being close to the whole journey, from the first conversation about a problem worth solving, through the messy technical work of building it, to watching someone use it and seeing what actually clicked (or didn't).</p>
+    <p>That's why I keep gravitating toward roles like Project Management and Product Ownership: they sit right at the intersection of the technical side I trained in and the business, organizational, and human side of getting a team to actually ship something good. I'm as comfortable in a technical conversation as I am in one about priorities, trade-offs, or what a client is really asking for.</p>
 </section>
 
-<section id="projects">
-  <h2>💻 Projects</h2>
-  <ul>
-    <li>
-      <strong>Web Development Projects</strong> – From simple interfaces to more dynamic applications, I enjoy designing and building user-centered web experiences.
-    </li>
-    <li>
-      <strong>Agile Collaboration</strong> – Participated in cross-functional development during my Decathlon internship, contributing to real company website features.
-    </li>
-    <li>
-      <strong>Academic Projects</strong> – Built multiple systems throughout my B.Sc. program in languages like Java, Python, and C++.
-    </li>
-  </ul>
+<section id="work" class="wrap">
+  <h2 class="section-title"><span class="num">02</span> Experience</h2>
+
+  <div class="job">
+    <div>
+      <div class="role">Project Manager Intern</div>
+      <div class="org">Premium Minds</div>
+    </div>
+    <div class="when">Jun 2026 — Present</div>
+    <p>Own and prioritize the product backlog within a Scrum framework, writing user stories and acceptance criteria for the development team. Track delivery through GitLab and liaise directly with clients to translate business needs into product specifications.</p>
+  </div>
+
+  <div class="job">
+    <div>
+      <div class="role">IT Intern</div>
+      <div class="org">Decathlon Portugal</div>
+    </div>
+    <div class="when">Summer 2022</div>
+    <p>Developed internal web tools using Laravel, PHP, and PostgreSQL, collaborating with the team using Git and Agile practices.</p>
+  </div>
 </section>
 
-<section id="experience">
-  <h2>🏢 Experience</h2>
-  <p><strong>Summer Intern – IT Team, Decathlon Portugal</strong></p>
-  <p>Worked on a company website, developing features in a collaborative environment and learning agile practices in a real-world context.</p>
+<section id="cases" class="wrap">
+  <h2 class="section-title"><span class="num">03</span> Case Studies</h2>
+
+    <article class="entry">
+    <div class="entry-head">
+      <h3>Building the First Large-Scale Crowdsourced Dataset for Portuguese Sign Language</h3>
+      <div class="entry-index">01</div>
+    </div>
+    <div class="entry-meta">M.Sc. Thesis (in progress) · Interactive Technologies Institute × Universidade Católica Portuguesa · Feb 2026 – Present</div>
+    <p><strong class="label">Problem</strong>Isolated Sign Language Recognition (ISLR) research for Portuguese Sign Language was blocked by the absence of a large-scale dataset — lab recording and web scraping don't scale or don't capture natural signing.</p>
+    <p><strong class="label">My role</strong>Research for the dataset and its integration into a live public LGP dictionary platform, from data collection design through to a shipped feature.</p>
+    <p><strong class="label">What I did</strong></p>
+    <ul>
+      <li>Designed crowdsourcing as the only viable path to scale, after ruling out lab recording and scraping, and built a crowdsourcing tool to collect the dataset</li>
+      <li>Met with APS (Associação Portuguesa de Surdos) to bring the Deaf community's insights into how the work was defined and built</li>
+      <li>Set the core research framing with my advisor: collect video with consent, anonymize as post-processing, and compare ISLR performance on anonymized vs. non-anonymized data</li>
+      <li>Shipped a new contributor module on the live dictionary platform (SvelteKit + Supabase, deployed on Cloudflare), including a new user role and admin-controlled feature visibility</li>
+    </ul>
+    <p><strong class="label">Where it stands</strong>Passed the thesis proposal defence with 18/20; currently finishing the remaining work and writing up.</p>
+    <div class="tag-row">
+      <span class="tag">Product Strategy</span>
+      <span class="tag">User Research</span>
+      <span class="tag">SvelteKit</span>
+      <span class="tag">Supabase</span>
+      <span class="tag">ML / Computer Vision</span>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head">
+      <h3>Proof of Taste — A Marketplace Connecting Consumers with Local Farmers</h3>
+      <div class="entry-index">02</div>
+    </div>
+    <div class="entry-meta">M.Sc. Course Project · Team of 5 · Oct 2025 – Jan 2026</div>
+    <p><strong class="label">Problem</strong>Consumers who want to buy directly from local farmers have no easy way to discover them, and farmers have no simple channel to reach consumers directly.</p>
+    <p><strong class="label">My role</strong>Project manager, leading a 5-person team through Agile sprints from concept to a pitch-ready product.</p>
+    <p><strong class="label">What I did</strong></p>
+    <ul>
+      <li>Ran user interviews and competitive analysis to validate product-market fit</li>
+      <li>Designed the core matching experience around a familiar dating-app-style pattern, to make discovery intuitive</li>
+      <li>Coordinated a mobile-first build with Next.js, React, Firebase, and TypeScript</li>
+      <li>Delivered the final pitch to SONAE Portugal executives</li>
+    </ul>
+    <p><strong class="label">Results</strong>Ranked top 10 out of 50+ competing teams.</p>
+    <div class="tag-row">
+      <span class="tag">Product Management</span>
+      <span class="tag">User Research</span>
+      <span class="tag">Agile / Scrum</span>
+      <span class="tag">Next.js</span>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head">
+      <h3>Grano — European Innovation Academy</h3>
+      <div class="entry-index">03</div>
+    </div>
+    <div class="entry-meta">EIA · August 2025</div>
+    <p><strong class="label">My role</strong>Product lead for Grano during a fast-paced, investor-facing startup sprint.</p>
+    <p><strong class="label">What I did</strong>Led product development end-to-end, interviewing 20+ potential customers and iterating the MVP directly on their feedback, then pitched the product vision and go-to-market strategy to a panel of investors.</p>
+    <div class="tag-row">
+      <span class="tag">MVP Iteration</span>
+      <span class="tag">User Research</span>
+      <span class="tag">Pitching</span>
+    </div>
+  </article>
 </section>
 
-<section id="skills">
-  <h2>🛠️ Skills</h2>
-  <p><strong>Programming:</strong> Python, Java, JavaScript, C, C++, PHP, SQL</p>
-  <p><strong>Soft Skills:</strong> Leadership, Creativity, Time Management, Team Motivation</p>
-  <p><strong>Languages:</strong> Portuguese (Native), English (Fluent), Spanish (Intermediate)</p>
+<section id="skills" class="wrap">
+  <h2 class="section-title"><span class="num">04</span> Skills</h2>
+  <div class="skill-grid">
+    <div class="skill-group">
+      <span class="label">Programming</span>
+      <div class="items">Python, Java, JavaScript, C/C++, PHP, SQL</div>
+    </div>
+    <div class="skill-group">
+      <span class="label">Frameworks &amp; Tools</span>
+      <div class="items">React, SvelteKit, Node.js, Spring, TailwindCSS, Git/GitHub, GitLab</div>
+    </div>
+    <div class="skill-group">
+      <span class="label">Product &amp; Collaboration</span>
+      <div class="items">Trello, ClickUp, Notion, PowerPoint</div>
+    </div>
+    <div class="skill-group">
+      <span class="label">Design &amp; Media</span>
+      <div class="items">Figma, Photoshop, Premiere, Canva Pro</div>
+    </div>
+    <div class="skill-group">
+      <span class="label">Languages</span>
+      <div class="items">Portuguese (Native), English (Fluent), Spanish (Intermediate)</div>
+    </div>
+  </div>
 </section>
 
-<section id="contact">
-  <h2>📬 Contact</h2>
-  <p>Email: <a href="mailto:joana.peixinho@tecnico.ulisboa.pt">joana.peixinho@tecnico.ulisboa.pt</a></p>
-  <p><a href="https://github.com/joanapeixinho" target="_blank" style="display:inline-block; padding:10px 20px; background:#e67e22; color:white; border-radius:5px;">Visit My GitHub</a></p>
+<section id="contact" class="wrap">
+  <h2 class="section-title"><span class="num">05</span> Contact</h2>
+  <p class="contact-line">joana.peixinho@tecnico.ulisboa.pt</p>
+  <a class="cta" href="https://github.com/joanapeixinho" target="_blank">GitHub ↗</a>
+  <a class="cta secondary" href="mailto:joana.peixinho@tecnico.ulisboa.pt">Send an email</a>
 </section>
+
+<script>
+  const entries = document.querySelectorAll('.entry');
+  const io = new IntersectionObserver((items) => {
+    items.forEach(item => {
+      if(item.isIntersecting){
+        item.target.classList.add('visible');
+        io.unobserve(item.target);
+      }
+    });
+  }, {threshold:0.15});
+  entries.forEach(e => io.observe(e));
+
+  const links = document.querySelectorAll('.thumb-index a');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  const nav = new IntersectionObserver((items) => {
+    items.forEach(item => {
+      const link = document.querySelector(`.thumb-index a[href="#${item.target.id}"]`);
+      if(item.isIntersecting){
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, {threshold:0.5});
+  sections.forEach(s => s && nav.observe(s));
+</script>
+
+</body>
+</html>
